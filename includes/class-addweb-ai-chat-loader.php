@@ -23,22 +23,46 @@
             //wp_enqueue_style('addweb-ai-chat-style', plugin_dir_url(__FILE__) . '../assets/css/addweb-ai-chat.css');
             // wp_enqueue_script('addweb-ai-chat-script', plugin_dir_url(__FILE__) . '../assets/js/addweb-ai-chat.js', ['jquery'], null, true);
             $settings = get_option('addweb_ai_chat_settings');
-            $bubble_color = esc_attr($settings['bubble_color'] ?? '#0073aa');
+            $bot_title = esc_html($settings['bot_title'] ?? __('Ticket Bot', 'addweb-ai-chat'));
+            $bot_chat_bg = esc_attr($settings['bot_chat_bg'] ?? '#fffff');
+            $bot_chat_text = esc_attr($settings['bot_chat_text'] ?? '#fffff');
+            $user_chat_bg = esc_attr($settings['user_chat_bg'] ?? '#6b1dfd');
+            $user_chat_text = esc_attr($settings['user_chat_text'] ?? '#fffff');
+
+            $bot_image = '';
+
+            if (!empty($settings['bot_image']) && filter_var($settings['bot_image'], FILTER_VALIDATE_URL)) {
+                $response = wp_remote_head($settings['bot_image']);
+
+                if (!is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
+                    $bot_image = esc_url($settings['bot_image']);
+                }
+            }
+
+            if (empty($bot_image)) {
+                $bot_image = ADDWEB_AI_CHAT_IMAGES . 'chat-board-icon.svg';
+            }
+
 
             wp_enqueue_style('addweb-ai-chat-style', plugin_dir_url(__FILE__) . '../assets/css/chat-style.css');
-            wp_add_inline_style('addweb-ai-chat-style', "
-        .addweb-chat-input button { background: {$bubble_color}; }
-    ");
 
             wp_enqueue_script('addweb-ai-chat-script', plugin_dir_url(__FILE__) . '../assets/js/chat-script.js', [], false, true);
             wp_localize_script('addweb-ai-chat-script', 'addweb_ai_chat', [
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'no_response_text' => __('No response', 'addweb-ai-chat'),
-                'error_text' => __('Error communicating with API.', 'addweb-ai-chat')
+                'error_text' => __('Error communicating with API.', 'addweb-ai-chat'),
+                'bot_image' => $bot_image,
+                'bot_title' => $bot_title,
+                'bot_chat_bg' => $bot_chat_bg,
+                'bot_chat_text' => $bot_chat_text,
+                'user_chat_bg' => $user_chat_bg,
+                'user_chat_text' => $user_chat_text,
             ]);
             add_action('wp_ajax_addweb_ai_chat_send_message', 'addweb_ai_chat_test_response');
             add_action('wp_ajax_nopriv_addweb_ai_chat_send_message', 'addweb_ai_chat_test_response');
         }
+
+
 
         public function render_chat_ui()
         {

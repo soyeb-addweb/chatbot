@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         div.className = 'user-chat';
         div.innerHTML = `
             <p class="msg-title">You</p>
-            <div class="user-msg">${escapeHtml(text)}</div>
+            <div class="user-msg" style="background-color:${addweb_ai_chat.user_chat_bg};color:${addweb_ai_chat.user_chat_text}">${escapeHtml(text)}</div>
         `;
     } else if (type === 'bot') {
         div.className = 'bot-chat';
@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Split bot response into multiple lines/messages (paragraph-style)
         //const lines = text.split(/(?:<br\s*\/?>|\n)/i); // supports <br> and \n
         // const botMsgs = lines.map(line => `<div class="bot-msg">${line.trim()}</div>`).join('');
-        const botMsgs = `<div class="bot-msg">${text}</div>`;
+        const botMsgs = `<div class="bot-msg" style="background-color:${addweb_ai_chat.bot_chat_bg};color:${addweb_ai_chat.bot_chat_text}">${text}</div>`;
 
         div.innerHTML = `
             <div class="msg-heading">
-                <img src="https://cdn.prod.website-files.com/675a7db640d825582387a1fc/683009a59bbaa43a2d9487a4_chat-icon.svg" alt="chat-bot-icon" width="22px" height="22px">
-                <p class="msg-title">Ticket Bot</p>
+                <img src="${addweb_ai_chat.bot_image}" alt="chat-bot-icon" width="22px" height="22px">
+                <p class="msg-title">${addweb_ai_chat.bot_title}</p>
             </div>
             ${botMsgs}
         `;
