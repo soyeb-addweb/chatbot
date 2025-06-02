@@ -43,7 +43,7 @@ function addweb_ai_chat_get_settings_fields()
         'bot_sub_title'         => ['label' => 'Header Sub Title', 'type' => 'text', 'default' => 'Online'],
         'bot_sub_color'         => ['label' => 'Header Sub Title Color', 'type' => 'color', 'default' => '#000'],
         'header_color'          => ['label' => 'Header Background Color', 'type' => 'color', 'default' => '#ffffff'],
-        'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_URL . 'chat-board-icon.svg'],
+        'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_URL . '/assets/images/default.png'],
         'bot_title'             => ['label' => 'Bot Title', 'type' => 'text', 'default' => 'Ticket Bot'],
         'bot_chat_bg'           => ['label' => 'Bot Chat Bubble Background Color', 'type' => 'color', 'default' => '#f1f1f1'],
         'bot_chat_text'         => ['label' => 'Bot Chat Bubble Text Color', 'type' => 'color', 'default' => '#000'],
@@ -83,3 +83,4 @@ require_once plugin_dir_path(__FILE__) . 'includes/class-addweb-ai-chat-settings
 
 new Addweb_AI_Chat_Loader();
 new Addweb_AI_Chat_Settings();
+

@@ -9,17 +9,17 @@
 .addweb-chat-message { margin: 5px 0; }
 .addweb-chat-message.bot { color: #000; }
 .addweb-chat-message.user { text-align: right; color: #555; }
-.addweb-chat-input { display: flex; padding: 10px; }
-.addweb-chat-input input { flex: 1; padding: 5px; }
-.addweb-chat-input button { padding: 5px 10px; border: none; color: white; cursor: pointer; }
+.addweb-chat-input { display: flex; padding: 10px !important; }
+.addweb-chat-input input { flex: 1; padding: 5px !important; }
+.addweb-chat-input button { padding: 5px 10px !important; border: none !important; color: white; cursor: pointer; }
 
 
 /* new desing */
  /* Chat Icon Wrapper */
 .msg-icon {
   position: fixed;
-  bottom: 20px;
-  right: 10px;
+  bottom: 2%;
+  right: 1%;
   z-index: 10000;
   filter: drop-shadow(0 0 15px #230063);
 }
@@ -102,7 +102,7 @@
   background-color: #cdceff;
   border-radius: 50%;
   text-align: center;
-  line-height: 78px;
+  line-height: 75px;
   position: relative;
 }
 
@@ -206,10 +206,10 @@
 }
 
 .msg-box input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 14px;
+  border: none !important;
+  outline: none !important;
+  width: 100% !important;
+  font-size: 14px !important;
 }
 
 .msg-box input::placeholder {
@@ -241,4 +241,6 @@
 
 .msg-heading img {
   border-radius: 50% !important;
+  width: 22px;
+  height: 22px;
 }
