@@ -36,7 +36,7 @@ $chat_placeholder = esc_attr($settings['chat_placeholder'] ?? __('Type your mess
 $chat_ph_bg_color = esc_attr($settings['chat_ph_bg_color'] ?? '#ffffff');
 $chat_ph_text_color = esc_attr($settings['chat_ph_text_color'] ?? '#131313');
 $chat_bg = esc_attr($settings['chat_bg'] ?? '#f3f3ff');
-    
+
 
 ?>
 <?php
@@ -107,9 +107,11 @@ if (!empty($chat_ph_text_color)) : ?>
                     <?php echo $welcome_message; ?>
                 </div>
             </div>
+
+        </div>
+        <div style="background-color: <?php echo $chat_bg; ?>;">
             <div class="loader addweb-chat-loading" style="display: none;"></div>
         </div>
-
         <!--msg box-->
         <div class="msg-box" style="background-color: <?php echo $chat_ph_bg_color; ?>;">
             <input type="text" !important;" class="addweb-chat-input" id="addweb-chat-user-input" placeholder="<?php echo $chat_placeholder; ?>" style="background-color: <?php echo $chat_ph_bg_color; ?>;" autocomplete="off">

@@ -174,6 +174,7 @@
   font-size: 14px;
   margin-top: 10px;
   color: #000000;
+  margin-bottom: 10px;
 }
 
 /* User Chat */
@@ -186,7 +187,7 @@
 
 .user-msg {
   background-color: #6b1dfd;
-  max-width: 106px;
+  max-width: 240px;
   border-radius: 10px 0 10px 10px;
   padding: 5px 10px;
   font-size: 14px;
@@ -229,6 +230,7 @@
   animation: l5 1s infinite linear alternate;
   margin-left: 47%;
   margin-top: 3%;
+  margin-bottom: 3%;
 }
 @keyframes l5 {
     0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
