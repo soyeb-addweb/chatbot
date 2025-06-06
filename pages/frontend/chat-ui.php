@@ -1,16 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
-
-
-
 $settings = get_option('addweb_ai_chat_settings');
 $position_class = $settings['position'] ?? 'bottom_right';
-
-
-
 $welcome_message = esc_html($settings['welcome_message'] ?? __('Hello! How can I help you?', 'addweb-ai-chat'));
 $bot_image = '';
-
 if (!empty($settings['bot_image']) && filter_var($settings['bot_image'], FILTER_VALIDATE_URL)) {
     $response = wp_remote_head($settings['bot_image']);
 
@@ -20,7 +13,7 @@ if (!empty($settings['bot_image']) && filter_var($settings['bot_image'], FILTER_
 }
 
 if (empty($bot_image)) {
-    $bot_image = ADDWEB_AI_CHAT_IMAGES . 'chat-board-icon.svg';
+    $bot_image = ADDWEB_AI_CHAT_IMAGES . 'default.png';
 }
 $header_title = esc_html($settings['header_title'] ?? __('Ticket Bot', 'addweb-ai-chat'));
 $header_text_color = esc_attr($settings['header_text_color'] ?? '#000');
@@ -36,10 +29,6 @@ $chat_placeholder = esc_attr($settings['chat_placeholder'] ?? __('Type your mess
 $chat_ph_bg_color = esc_attr($settings['chat_ph_bg_color'] ?? '#ffffff');
 $chat_ph_text_color = esc_attr($settings['chat_ph_text_color'] ?? '#131313');
 $chat_bg = esc_attr($settings['chat_bg'] ?? '#f3f3ff');
-
-
-?>
-<?php
 //change place holder text color
 if (!empty($chat_ph_text_color)) : ?>
     <style>
@@ -83,7 +72,7 @@ if (!empty($chat_ph_text_color)) : ?>
         <!--chat-bot-heading-->
         <div class="chat-header" style="background-color: <?php echo $header_color; ?>;">
             <div class="chat-bot-icon">
-                <img src="<?php echo $bot_image; ?>" alt="chat-board-icon" width="35px" height="35  px">
+                <img src="<?php echo $bot_image; ?>" alt="chat-board-icon" width="55px" height="55px" class="user-icon">
                 <div class="status-online"></div>
             </div>
 

@@ -16,50 +16,55 @@
 
 /* new desing */
  /* Chat Icon Wrapper */
-.msg-icon {
+.add-web-ai-chat .msg-icon {
   position: fixed;
   bottom: 2%;
-  right: 1%;
+  right: 1% !important;
   z-index: 10000;
   filter: drop-shadow(0 0 15px #230063);
 }
 
-.msg-button {
-  border: none;
-  background-color: transparent;
+.add-web-ai-chat .msg-button {
+  border: none !important;
+  background-color: transparent !important;
+  outline: none !important;
   cursor: pointer;
-  position: relative;
+  position: relative !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
 }
 
 /* Chat Icon Images */
-#chatIcon {
+.add-web-ai-chat #chatIcon {
   transition: transform 0.5s ease-in-out;
 }
-.rotated {
+.add-web-ai-chat .rotated {
   transform: rotate(-90deg);
 }
 
-#msg-Vector {
-  position: absolute;
-  top: 16px;
-  right: 18px;
+.add-web-ai-chat #msg-Vector {
+  position: absolute !important;
+  top: 17px !important;
+  right: 13px !important;
   transition: 
     top 0.5s ease-in-out, 
     right 0.5s ease-in-out;
 }
 
-#msg-Vector.vector-moved {
-  top: 15px;
-  right: 18px;
+.add-web-ai-chat #msg-Vector.vector-moved {
+  top: 15px !important;
+  right: 13px !important;
 }
 
 /* Background Image Position */
-.msg-chat-bg {
+.add-web-ai-chat .msg-chat-bg {
   position: relative;
 }
 
 /* Chat Board */
-.chat-board {
+.add-web-ai-chat .chat-board {
   position: fixed;
   bottom: 90px;
   right: 30px;
@@ -81,22 +86,22 @@
     opacity 0.4s ease;
 }
 
-.chat-board.show {
+.add-web-ai-chat .chat-board.show {
   transform: translateY(0%);
   opacity: 1;
 }
 
 /* Chat Header */
-.chat-header {
+.add-web-ai-chat .chat-header {
   background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  /* height: 60px; */
   padding: 15px;
 }
 
-.chat-bot-icon {
+.add-web-ai-chat .chat-bot-icon {
   width: 55px;
   height: 55px;
   background-color: #cdceff;
@@ -105,8 +110,15 @@
   line-height: 75px;
   position: relative;
 }
+.add-web-ai-chat .user-icon
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 50%;
+}
 
-.status-online {
+.add-web-ai-chat .status-online {
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -116,12 +128,12 @@
   right: 7px;
 }
 
-.chat-bot-heading {
+.add-web-ai-chat .chat-bot-heading {
   width: 200px;
   /* border: 2px solid red; */
 } 
 
-.chat-bot-title {
+.add-web-ai-chat .chat-bot-title {
   font-weight: 700;
   font-size: 24px;
   line-height: 31.2px;
@@ -131,7 +143,7 @@
   margin-top: 0px;
 }
 
-.chat-bot-status {
+.add-web-ai-chat .chat-bot-status {
   font-weight: 400;
   font-size: 12px;
   line-height: 19.2px;
@@ -140,24 +152,24 @@
   margin-bottom: 0px;
 }
 
-.chat-btn-close {
+.add-web-ai-chat .chat-btn-close {
   cursor: pointer;
 }
 
 /* Chat Body */
-.chat-body {
+.add-web-ai-chat .chat-body {
   background-color: #f3f3ff;
   padding: 15px;
 }
 
-.msg-heading {
+.add-web-ai-chat .msg-heading {
   display: flex;
   align-items: center;
   gap: 5px;
 
 }
 
-.msg-title {
+.add-web-ai-chat .msg-title {
   font-weight: 400;
   font-size: 14px;
   line-height: 22.4px;
@@ -166,7 +178,7 @@
   margin-bottom: 0;
 }
 
-.bot-msg {
+.add-web-ai-chat .bot-msg {
   background-color: #ffffff;
   max-width: 231px;
   border-radius: 0 10px 10px 10px;
@@ -178,14 +190,14 @@
 }
 
 /* User Chat */
-.user-chat {
+.add-web-ai-chat .user-chat {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin-top: 15px;
 }
 
-.user-msg {
+.add-web-ai-chat .user-msg {
   background-color: #6b1dfd;
   max-width: 240px;
   border-radius: 10px 0 10px 10px;
@@ -197,7 +209,7 @@
 }
 
 /* Message Input Box */
-.msg-box {
+.add-web-ai-chat .msg-box {
   height: 60px;
   padding: 0 15px;
   display: flex;
@@ -205,25 +217,26 @@
   justify-content: space-between;
 }
 
-.msg-box input {
+.add-web-ai-chat .msg-box input {
   border: none !important;
   outline: none !important;
   width: 100% !important;
   font-size: 14px !important;
+  box-shadow: none !important;
 }
 
-.msg-box input::placeholder {
+.add-web-ai-chat .msg-box input::placeholder {
   color: #5a5a5a;
   font-weight: 400;
 }
 
-.send-msg-icon {
+.add-web-ai-chat .send-msg-icon {
   cursor: pointer;
 }
 
 /* loader css */
 /* HTML: <div class="loader"></div> */
-.loader {
+.add-web-ai-chat .loader {
   width: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -239,8 +252,11 @@
     100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
 }
 
-.msg-heading img {
+.add-web-ai-chat .msg-heading img {
   border-radius: 50% !important;
   width: 22px;
   height: 22px;
+}
+.nav-tab-wrapper {
+    margin-bottom: 20px;
 }

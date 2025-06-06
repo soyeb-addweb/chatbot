@@ -129,4 +129,6 @@ function escapeHtml(text) {
         // Optionally clear chat history
         chatBody.innerHTML = '';
     };
+    //add extra js
+    
 });
