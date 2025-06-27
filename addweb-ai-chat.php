@@ -33,6 +33,7 @@ function addweb_ai_chat_get_settings_fields()
 {
     return [
         'api_url'               => ['label' => 'API URL', 'type' => 'url', 'default' => 'https://new-suddenly-sailfish.ngrok-free.app/api/chatbot/query'],
+        'end_chat'              => ['label' => 'Chat End API URL', 'type' => 'url', 'default' => 'https://addwebchatbot.addwebprojects.com/api/chatbot/chat/end'],
         'api_token'             => ['label' => 'API Token', 'type' => 'text', 'default' => ''],
         'welcome_message'       => ['label' => 'Welcome Message', 'type' => 'text', 'default' => 'Hello! How can I help you?'],
         'header_title'          => ['label' => 'Header Title', 'type' => 'text', 'default' => 'Ticket Bot'],
@@ -40,7 +41,7 @@ function addweb_ai_chat_get_settings_fields()
         'bot_sub_title'         => ['label' => 'Header Sub Title', 'type' => 'text', 'default' => 'Online'],
         'bot_sub_color'         => ['label' => 'Header Sub Title Color', 'type' => 'color', 'default' => '#000'],
         'header_color'          => ['label' => 'Header Background Color', 'type' => 'color', 'default' => '#ffffff'],
-        'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_URL . 'assets/images/default.png'],
+        'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_IMAGES . 'default.png'],
         'bot_title'             => ['label' => 'Bot Title', 'type' => 'text', 'default' => 'Ticket Bot'],
         'bot_chat_bg'           => ['label' => 'Bot Chat Bubble Background Color', 'type' => 'color', 'default' => '#f1f1f1'],
         'bot_chat_text'         => ['label' => 'Bot Chat Bubble Text Color', 'type' => 'color', 'default' => '#000'],

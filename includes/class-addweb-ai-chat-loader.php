@@ -8,8 +8,10 @@ class Addweb_AI_Chat_Loader
     {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
         add_action('wp_footer', [$this, 'render_chat_ui']);
-        add_action('wp_ajax_addweb_ai_chat_send_message', [$this, 'handle_ajax']);
-        add_action('wp_ajax_nopriv_addweb_ai_chat_send_message', [$this, 'handle_ajax']);
+        add_action('wp_ajax_addweb_ai_chat_send_message', [$this, 'addweb_handle_ajax']);
+        add_action('wp_ajax_nopriv_addweb_ai_chat_send_message', [$this, 'addweb_handle_ajax']);
+        add_action('wp_ajax_addweb_end_chat', [$this, 'addweb_handle_end_chat']);
+        add_action('wp_ajax_nopriv_addweb_end_chat', [$this, 'addweb_handle_end_chat']);
         add_action('init', [$this, 'addweb_session_management']);
     }
     public function addweb_session_management()
@@ -40,7 +42,7 @@ class Addweb_AI_Chat_Loader
         }
 
         if (empty($bot_image)) {
-            $bot_image = ADDWEB_AI_CHAT_IMAGES . 'chat-board-icon.svg';
+            $bot_image = ADDWEB_AI_CHAT_IMAGES . 'default.png';
         }
 
 
@@ -57,9 +59,10 @@ class Addweb_AI_Chat_Loader
             'bot_chat_text' => $bot_chat_text,
             'user_chat_bg' => $user_chat_bg,
             'user_chat_text' => $user_chat_text,
+            'nonce'    => wp_create_nonce('addweb_ai_chat_nonce'),
+            'api_url' => $settings['api_url'],
+            'api_token' => $settings['api_token'],
         ]);
-        add_action('wp_ajax_addweb_ai_chat_send_message', 'addweb_ai_chat_test_response');
-        add_action('wp_ajax_nopriv_addweb_ai_chat_send_message', 'addweb_ai_chat_test_response');
     }
 
 
@@ -69,8 +72,9 @@ class Addweb_AI_Chat_Loader
         include ADDWEB_AI_CHAT_DIR . 'pages/frontend/chat-ui.php';
     }
 
-    public function handle_ajax()
+    public function addweb_handle_ajax()
     {
+        check_ajax_referer('addweb_ai_chat_nonce', 'nonce');
         $message = sanitize_text_field($_POST['message'] ?? '');
         $session_id = sanitize_text_field($_POST['session_id'] ?? ''); // Get session_id from request
         $settings = get_option('addweb_ai_chat_settings');
@@ -82,13 +86,17 @@ class Addweb_AI_Chat_Loader
         }
 
         // Prepare request body
-        $request_body = ['query' => $message];
+        $request_body = [
+            'query' => $message,
+            'stream' => true
+        ];
 
         // Add session_id to request if it exists (for chat continuity)
         if (!empty($session_id)) {
             $request_body['session_id'] = $session_id;
         }
 
+        error_log("request_body: " . print_r($request_body, true));
         $response = wp_remote_post($api_url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $api_token,
@@ -106,6 +114,7 @@ class Addweb_AI_Chat_Loader
         // Get raw response body
         $raw_response = wp_remote_retrieve_body($response);
         $http_code = wp_remote_retrieve_response_code($response);
+
 
         error_log('=== DEBUG START ===');
         error_log('HTTP Status Code: ' . $http_code);
@@ -165,7 +174,9 @@ class Addweb_AI_Chat_Loader
             $reply = is_array($reply_data) && isset($reply_data['response'])
                 ? $reply_data['response']
                 : __('No reply from AI', 'addweb-ai-chat');
-            $new_session_id = $body['data']['session_id'] ?? '';
+            $new_session_id = $reply_data['session_id'] ?? '';
+
+            error_log("API Response session id: " . $new_session_id);
 
             // Convert Markdown to HTML using Parsedown
             if (!class_exists('Parsedown')) {
@@ -220,5 +231,53 @@ class Addweb_AI_Chat_Loader
                 'response' => __('Invalid API response structure', 'addweb-ai-chat')
             ]);
         }
+    }
+
+
+    function addweb_handle_end_chat()
+    {
+        check_ajax_referer('addweb_ai_chat_nonce', 'nonce');
+        error_log("post variables: " . print_r($_POST, true));
+
+        $email      = sanitize_email($_POST['email'] ?? '');
+        $session_id = sanitize_text_field($_POST['session_id'] ?? '');
+        $api_token = sanitize_text_field($settings['api_token'] ?? '');
+
+        if (empty($email) || empty($session_id)) {
+            wp_send_json_error('Missing email or session ID');
+        }
+
+        $settings = get_option('addweb_ai_chat_settings');
+        $endpoint = esc_url_raw($settings['end_chat'] ?? '');
+
+        if (empty($endpoint)) {
+            wp_send_json_error('End Chat API endpoint not configured');
+        }
+
+        $response = wp_remote_post($endpoint, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $api_token,
+                'Content-Type'  => 'application/json',
+            ],
+
+            'body'    => json_encode([
+                'session_id' => $session_id,
+                'email'      => $email,
+            ]),
+            'timeout' => 15,
+        ]);
+        error_log("API Response: " . print_r($response, true));
+        if (is_wp_error($response)) {
+            wp_send_json_error('API request failed: ' . $response->get_error_message());
+        }
+
+        $code = wp_remote_retrieve_response_code($response);
+        $body = wp_remote_retrieve_body($response);
+
+        if ($code !== 200) {
+            wp_send_json_error('API error: ' . $body);
+        }
+
+        wp_send_json_success('Chat ended successfully');
     }
 }

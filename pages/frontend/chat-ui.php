@@ -63,6 +63,7 @@ if (!empty($chat_ph_text_color)) : ?>
         <button class="msg-button" id="ChatBtn">
             <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>bg-chat-image.svg" alt="msg-bg" class="img-fluid msg-chat-bg" id="chatIcon">
             <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>msg-Vector.svg" alt="msg-icon" class="msg-Vector-01" id="msg-Vector">
+            <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>close-icon.svg" alt="msg-icon" class="msg-Vector-02" id="close-Vector">
         </button>
     </div>
 
@@ -80,7 +81,10 @@ if (!empty($chat_ph_text_color)) : ?>
                 <h4 class="chat-bot-title" style="color: <?php echo $header_text_color; ?>;"><?php echo $header_title; ?></h4>
                 <p class="chat-bot-status" style="color: <?php echo $bot_sub_color; ?>;"><?php echo $bot_sub_title;    ?></p>
             </div>
-            <div class="chat-btn-close" id="closeChatBtn">
+            <div class="chat-btn-close" id="endChatBtn" title="End Chat">
+                <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>end_chat.png" alt="chat-bot" width="39px" height="39px" class="end-chat-icon">
+            </div>
+            <div class="chat-btn-close" id="closeChatBtn" title="Close Chat">
                 <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>chat-bot-close-icon.svg" alt="chat-bot" width="39px" height="39px">
             </div>
         </div>
@@ -98,13 +102,25 @@ if (!empty($chat_ph_text_color)) : ?>
             </div>
 
         </div>
+        <!--popup-->
+        <div class="popup addweb-dnone" id="endChatPopup">
+            <div class="popup-email-title">
+                <span class="email-title">Email Address</span>
+                <img src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>required.svg" alt="msg-bg" class="img-fluid required-icon">
+            </div>
+            <input type="text" placeholder="Enter your email address" class="popup-input">
+            <div class="popup-end-btn">
+                <button type="button" class="popup-btn">End Chat</button>
+                <a href="#" id="cancel-btn" class="cancel-btn">Cancel</a>
+            </div>
+        </div>
         <div style="background-color: <?php echo $chat_bg; ?>;">
             <div class="loader addweb-chat-loading" style="display: none;"></div>
         </div>
         <!--msg box-->
         <div class="msg-box" style="background-color: <?php echo $chat_ph_bg_color; ?>;">
-            <input type="text" !important;" class="addweb-chat-input" id="addweb-chat-user-input" placeholder="<?php echo $chat_placeholder; ?>" style="background-color: <?php echo $chat_ph_bg_color; ?>;" autocomplete="off">
-            <img id="addweb-chat-send-button" src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>msg-send-icon.svg" alt="send-msg" class="send-msg-icon">
+            <input type="text" class="addweb-chat-input" id="addweb-chat-user-input" placeholder="<?php echo $chat_placeholder; ?>" style="background-color: <?php echo $chat_ph_bg_color; ?>;" autocomplete="off">
+            <img id="addweb-chat-send-button" src="<?php echo ADDWEB_AI_CHAT_IMAGES ?>msg-send-icon.svg" alt="send-msg" class="send-msg-icon" title="Send Message">
         </div>
     </div>
 </div>

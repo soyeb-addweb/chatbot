@@ -28,7 +28,7 @@ class Addweb_AI_Chat_Settings
 
         // Tabs and grouped fields
         $tabs = [
-            'general' => ['title' => 'General', 'fields' => ['api_url', 'api_token', 'welcome_message', 'chat_placeholder']],
+            'general' => ['title' => 'General', 'fields' => ['api_url', 'end_chat', 'api_token', 'welcome_message', 'chat_placeholder']],
             'header' => ['title' => 'Header', 'fields' => ['header_title', 'header_text_color', 'bot_sub_title', 'bot_sub_color', 'header_color', 'bot_image', 'bot_title']],
             'appearance' => ['title' => 'Appearance', 'fields' => ['bot_chat_bg', 'bot_chat_text', 'user_chat_bg', 'user_chat_text', 'chat_bg', 'chat_ph_bg_color', 'chat_ph_text_color']],
         ];
@@ -36,6 +36,7 @@ class Addweb_AI_Chat_Settings
         // Field definitions (do not modify this)
         $fields = [
             'api_url'               => ['label' => 'API URL', 'type' => 'url'],
+            'end_chat'               => ['label' => 'Chat End API URL', 'type' => 'url'],
             'api_token'             => ['label' => 'API Token', 'type' => 'text'],
             'welcome_message'       => ['label' => 'Welcome Message', 'type' => 'text'],
             'header_title'          => ['label' => 'Header Title', 'type' => 'text'],
@@ -103,7 +104,8 @@ class Addweb_AI_Chat_Settings
     private function get_fields_with_defaults()
     {
         return [
-            'api_url'               => ['label' => 'API URL', 'type' => 'url', 'default' => 'https://new-suddenly-sailfish.ngrok-free.app/api/chatbot/query'],
+            'api_url'               => ['label' => 'API URL', 'type' => 'url', 'default' => 'https://addwebchatbot.addwebprojects.com/api/chatbot/query'],
+            'end_chat'               => ['label' => 'Chat End API URL', 'type' => 'url', 'default' => 'https://addwebchatbot.addwebprojects.com/api/chatbot/chat/end'],
             'api_token'             => ['label' => 'API Token', 'type' => 'text', 'default' => 'testtoken'],
             'welcome_message'       => ['label' => 'Welcome Message', 'type' => 'text', 'default' => 'Hello! How can I help you?'],
             'header_title'          => ['label' => 'Header Title', 'type' => 'text', 'default' => 'Ticket Bot'],
@@ -111,7 +113,7 @@ class Addweb_AI_Chat_Settings
             'bot_sub_title'         => ['label' => 'Header Sub Title', 'type' => 'text', 'default' => 'Online'],
             'bot_sub_color'         => ['label' => 'Header Sub Title Color', 'type' => 'color', 'default' => '#000'],
             'header_color'          => ['label' => 'Header Background Color', 'type' => 'color', 'default' => '#ffffff'],
-            'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_IMAGES . '/default.png'],
+            'bot_image'             => ['label' => 'Bot Image', 'type' => 'image', 'default' => ADDWEB_AI_CHAT_IMAGES . 'default.png'],
             'bot_title'             => ['label' => 'Bot Title', 'type' => 'text', 'default' => 'Ticket Bot'],
             'bot_chat_bg'           => ['label' => 'Bot Chat Bubble Background Color', 'type' => 'color', 'default' => '#f1f1f1'],
             'bot_chat_text'         => ['label' => 'Bot Chat Bubble Text Color', 'type' => 'color', 'default' => '#000'],
