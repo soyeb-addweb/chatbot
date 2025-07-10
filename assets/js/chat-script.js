@@ -159,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Generate session ID if not exists
-            // let chatSessionId = localStorage.getItem('addweb_chat_session_id') || '';
 
             // Prepare URL with query parameters
             const url = new URL(API_CONFIG.url);
@@ -168,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
             url.searchParams.append('stream', 'true');
 
             // Prepare request body
+            console.log("request chat session ID:", chatSessionId);
             const requestBody = {
                 query: message,
                 session_id: chatSessionId,
@@ -212,7 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             const parsed = JSON.parse(data);
 
                             if (parsed.type === 'complete' && parsed.result?.session_id) {
-                                localStorage.setItem('addweb_chat_session_id', parsed.result.session_id);
+                                chatSessionId = parsed.result.session_id;
+                                console.log("Updated chat session ID:", chatSessionId);
+                                localStorage.setItem('addweb_chat_session_id', chatSessionId);
                             }
 
                             // Handle different response formats
