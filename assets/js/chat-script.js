@@ -211,6 +211,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         try {
                             const parsed = JSON.parse(data);
 
+                            if (parsed.type === 'complete' && parsed.result?.session_id) {
+                                localStorage.setItem('addweb_chat_session_id', parsed.result.session_id);
+                            }
+
                             // Handle different response formats
                             let content = '';
 
@@ -246,11 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 // Optional: Debug logging (remove in production)
                                 console.log('New chunk:', content);
                                 console.log('Total so far:', accumulatedResponse);
-                            }
-
-                            // Handle session management - your API might return session_id in response
-                            if (parsed.session_id) {
-                                localStorage.setItem('addweb_chat_session_id', parsed.session_id);
                             }
 
                         } catch (parseError) {
