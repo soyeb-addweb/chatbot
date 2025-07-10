@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Generate session ID if not exists
-            let chatSessionId = localStorage.getItem('addweb_chat_session_id') || '';
+            // let chatSessionId = localStorage.getItem('addweb_chat_session_id') || '';
 
             // Prepare URL with query parameters
             const url = new URL(API_CONFIG.url);
