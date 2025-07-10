@@ -159,10 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Generate session ID if not exists
-            if (!chatSessionId) {
-                chatSessionId = 'chat_' + Math.random().toString(36).substr(2, 20);
-                localStorage.setItem('addweb_chat_session_id', chatSessionId);
-            }
+            let chatSessionId = localStorage.getItem('addweb_chat_session_id') || '';
 
             // Prepare URL with query parameters
             const url = new URL(API_CONFIG.url);
@@ -252,9 +249,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
 
                             // Handle session management - your API might return session_id in response
-                            if (parsed.session_id && parsed.session_id !== chatSessionId) {
-                                chatSessionId = parsed.session_id;
-                                localStorage.setItem('addweb_chat_session_id', chatSessionId);
+                            if (parsed.session_id) {
+                                localStorage.setItem('addweb_chat_session_id', parsed.session_id);
                             }
 
                         } catch (parseError) {
@@ -301,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Optional: Add function to clear chat session
-    window.clearChatSession = function() {
+    window.clearChatSession = function () {
         chatSessionId = '';
         localStorage.removeItem('addweb_chat_session_id');
         // Optionally clear chat history
@@ -309,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Function to switch between streaming and WordPress modes
-    window.toggleChatMode = function(useStreaming = true) {
+    window.toggleChatMode = function (useStreaming = true) {
         if (useStreaming) {
             sendButton.removeEventListener('click', sendMessageWordPress);
             sendButton.addEventListener('click', sendMessage);
@@ -400,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     cancelbtn.addEventListener("click", closeChatPopup);
 
-// Close button logic
+    // Close button logic
     if (closeBtn) {
         closeBtn.addEventListener("click", closeChatPopup);
     }
